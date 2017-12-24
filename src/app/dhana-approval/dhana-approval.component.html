@@ -1,0 +1,25 @@
+
+<hr>
+<div class="container">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-left">
+
+
+       <div class="form-group col-md-12">
+         <div class="col-md-6">
+             <button name="btn_register" class="btn btn-success" (click)="approve()">Approve</button>
+         </div>
+         <div class="col-md-6">
+         <button type="button" class="btn btn-danger" (click)="reject()">Reject</button>
+         </div>
+       </div>
+       <div class="row form-group col-md-12 text-center">
+          <label for="type">Message to Requester</label>
+          <textarea [(ngModel)]="specialNotes" type="text" class="form-control" id="type" ng-model="type" placeholder="Please be kind enough to mention the reason in case you reject the request"></textarea>
+        </div>
+       <div class="col-md-4">
+       </div>
+     </div>
+     <div class="col-md-4"></div>
+
+</div>

@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { AddDhanaComponent } from './add-dhana/add-dhana.component';
 import { AppRoutingModule } from './app-routing.module';
 import { DhanaRequestComponent } from './dhana-request/dhana-request.component';
+import { DhanaApprovalComponent } from './dhana-approval/dhana-approval.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AddDhanaComponent,
-    DhanaRequestComponent
+    DhanaRequestComponent,
+    DhanaApprovalComponent
   ],
   imports: [
     BrowserModule,
