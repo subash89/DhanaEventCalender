@@ -14,13 +14,21 @@ export class AddDhanaComponent implements OnInit {
   email ?: string;
   dayOfMonth ?: number=5;
   specialNotes ?: string;
+  days ?:number[];
+  errorMessage ?:string;
 
   reminderAddResult ?:boolean=undefined;
   eventLink ?:string='';
 
 
 
-  constructor(private dhanaService:DhanaService) { }
+  constructor(private dhanaService:DhanaService) { 
+    let d=[];
+    for(var i=1;i<32;i++){
+      d.push(i);
+    }
+    this.days=d;
+  }
 
   ngOnInit() {
   }
@@ -39,6 +47,19 @@ export class AddDhanaComponent implements OnInit {
         console.log("Event successfully created");
         self.reminderAddResult=true;
       }
+    }).catch((err)=>{
+      console.log(err);
+      console.log(err.status);
+      console.log(err.error[0].summary);
+      
+      if(err.status==403){
+        self.errorMessage="Dhana slot is already taken."+err.error[0].summary;
+      }else{
+        self.errorMessage="Error occured while adding dhana slot. May be it is already taken";
+
+      }
+      self.reminderAddResult=false;
+
     });
 
 

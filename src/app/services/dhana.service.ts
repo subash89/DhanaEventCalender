@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DhanaRequest } from '../models/DhanaRequest';
 import { Observable } from 'rxjs/Observable';
+const am_11:number=60*60*11*1000;
+const pm_1:number=60*60*13*1000;
 
 @Injectable()
 export class DhanaService {
@@ -9,23 +11,41 @@ export class DhanaService {
   constructor(private http:HttpClient) { }
   addDhana(request: DhanaRequest): Promise<any>{
 
+    let baseDate= new Date("2018-01-"+request.dayOfMonth);
+    let startDate=new Date(baseDate.getTime()+am_11);
+    let endDate=new Date(baseDate.getTime()+pm_1);
+
+
+      
+
      let fullName=request.getFullName();
     let event={
-      "summary": "Dhawal Dhanaya by "+fullName,
+      'metaData':request,
+      'googleCalenderEvent':{
+      "summary": fullName,
       "location": "temple",
-      "description": "Dhawal Dhanaya offered by "+fullName,
+      "description": fullName,
       "start": {
-        "date": "2018-01-"+request.dayOfMonth
+        "dateTime":startDate.toISOString(),
+        'timeZone': 'America/New_York'
       },
       "end": {
-        "date": "2018-01-"+request.dayOfMonth
+        "dateTime": endDate.toISOString(),
+        'timeZone': 'America/New_York'
       }
     ,
       "recurrence": [
         "RRULE:FREQ=MONTHLY;BYMONTHDAY="+request.dayOfMonth+";INTERVAL=1"
       ]
-    };
+    }};
     return this.http.put('/calender/event',event).toPromise();
+
+   }
+
+   approveDhana(key:string):Promise<any>{
+
+     return this.http.get('/calender/request/approve?key='+key).toPromise();
+
 
    }
 }

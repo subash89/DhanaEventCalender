@@ -4,6 +4,72 @@ var oauth=require('../oauth/google_oauth_provider');
 var fs = require('fs');
 var config=require('../../../config');
 
+
+
+module.exports.getEventsForDate=function(date){
+  var lowerLimit=new Date(date);
+  var upperLimit=new Date(lowerLimit.getTime()+86400000);
+  console.log(lowerLimit.toISOString());
+  console.log(upperLimit.toISOString());
+  return new Promise(function(resolve,reject){
+    var calendar = google.calendar('v3');
+    calendar.events.list({
+      auth: oauth.jwt,
+      calendarId: config.calender_id,
+      timeMin: lowerLimit.toISOString(),
+      timeMax: upperLimit.toISOString(),
+      maxResults: 1,
+      singleEvents: true,
+      orderBy: 'startTime'
+    }, function(err, response) {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        reject(err);        
+        return;
+      }
+      var events = response.items;
+      if (events.length == 0) {
+        console.log('No upcoming events found.');
+        resolve([]);
+
+      } else {
+        resolve(events);
+       // data.send(eventList);
+
+      }
+    });
+});
+
+}
+
+
+module.exports.getEventById=function(id){
+ 
+  console.log('retrieving for id '+id);
+  return new Promise(function(resolve,reject){
+    var calendar = google.calendar('v3');
+    calendar.events.get({
+      auth: oauth.jwt,
+      calendarId: config.calender_id,
+      eventId:id,
+      maxResults: 1,
+      singleEvents: true,
+ 
+    }, function(err, response) {
+      console.log(response);
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        reject(err);        
+      }
+      resolve(response);
+     
+    });
+});
+
+}
+
+
+
 module.exports.getEvents =function() {
     return new Promise(function(resolve,reject){
         var calendar = google.calendar('v3');
@@ -96,6 +162,9 @@ module.exports.addEvent=function(event){
           calendarId: config.calender_id,
           resource: event,
         }, function(err, event) {
+          console.log('event created');
+          console.log(event);
+
           if (err) {
             console.log('The API returned an error: ' + err);
             reject(err);        
@@ -110,7 +179,32 @@ module.exports.addEvent=function(event){
 }
 
 module.exports.updateEvent=function(event){
-    
+
+  return new Promise(function(resolve,reject){
+
+    oauth.jwt.authorize(function(err,token){
+      console.log("========");
+      
+      console.log(token);
+      console.log("========");
+      
+      var calendar = google.calendar('v3');
+      calendar.events.update({
+        auth: oauth.jwt,
+        calendarId:config.calender_id,
+        eventId:event.id,
+        resource: event,
+      }, function(err, event) {
+        if (err) {
+          console.log('The API returned an error when updating: ' + err);
+          reject(err);
+        }
+        resolve(event);
+      });
+    });
+
+  });
+
 
 }
 

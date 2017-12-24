@@ -24,7 +24,6 @@
           <label for="day">Day of the Month</label>
           <select [(ngModel)]="dayOfMonth">
               <option *ngFor="let x of days" value="{{x}}">{{x}}</option>
-            
             </select>
         </div>
         <div class="row form-group">
@@ -53,6 +52,6 @@
   <strong>Success!</strong> Reminder added succesfully. <a href="{{eventLink}}" target="_blank">Click Here</a> to view the event. 
 </div>
 <div class="alert alert-danger col-md-12"  *ngIf="reminderAddResult!==undefined && reminderAddResult==false">
-  <strong>Failed!</strong> Reminder was not added, try again.
+  <strong>Failed!</strong> {{errorMessage}}
 </div>
 
