@@ -1,0 +1,58 @@
+<hr>
+<h1>Add Dhana Event</h1>
+<hr>
+<div class="col-md-4">
+</div>
+
+<div class="container">
+
+     <div class="col-md-4 text-left">
+        <div class="row form-group">
+          <label for="fName">First Name</label>
+          <input [(ngModel)]="firstName" type="text" class="form-control" id="fName" placeholder="Enter First Name">
+        </div>
+        <div class="row form-group">
+          <label for="payee">Last Name</label>
+          <input [(ngModel)]="lastName" type="text" class="form-control" id="payee" ng-model="payee" placeholder="Enter Last Name">
+        </div>
+        <div class="row form-group">
+          <label for="payee">email</label>
+          <input [(ngModel)]="email" type="text" class="form-control" id="payee" ng-model="payee" placeholder="Enter Email Adress">
+        </div>
+      
+        <div class="row form-group">
+          <label for="day">Day of the Month</label>
+          <select [(ngModel)]="dayOfMonth">
+              <option *ngFor="let x of days" value="{{x}}">{{x}}</option>
+            
+            </select>
+        </div>
+        <div class="row form-group">
+          <label for="type">Special Notes</label>
+          <textarea [(ngModel)]="specialNotes" type="text" class="form-control" id="type" ng-model="type" placeholder="Enter Any special note"></textarea>
+        </div>
+        <div class="col-md-4">
+        </div>
+        <div class="form-group" class="col-md-8">
+          <div class="col-md-4">
+              <button name="btn_register" class="btn btn-primary" (click)="addDhana()">Add</button>
+          </div>
+          <div class="col-md-4">
+          <button type="button" class="btn btn-default">Cancel</button>
+          </div>
+        </div>
+      
+        <div class="col-md-4">
+        </div>
+      </div>
+ </div>
+<div class="col-md-4">
+</div>
+
+<div class="alert alert-success col-md-12"  *ngIf="reminderAddResult">
+  <strong>Success!</strong> Reminder added succesfully. <a href="{{eventLink}}" target="_blank">Click Here</a> to view the event. 
+</div>
+<div class="alert alert-danger col-md-12"  *ngIf="reminderAddResult!==undefined && reminderAddResult==false">
+  <strong>Failed!</strong> Reminder was not added, try again.
+</div>
+

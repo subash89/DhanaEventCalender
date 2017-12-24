@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node ./bin/www",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,7 +23,19 @@
     "@angular/router": "^5.0.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "google-auth-library": "^0.12.0",
+    "googleapis": "^23.0.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "jade": "~1.11.0",
+    "mongoose": "^4.10.0",
+    "morgan": "~1.8.1",
+    "q": "^1.5.0",
+    "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
     "@angular/cli": "1.5.0",
@@ -44,6 +56,18 @@
     "protractor": "~5.1.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
-    "typescript": "~2.4.2"
+    "typescript": "~2.4.2",
+    "google-auth-library": "^0.12.0",
+    "googleapis": "^23.0.0",
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "express-session": "^1.15.3",
+    "jade": "~1.11.0",
+    "mongoose": "^4.10.0",
+    "morgan": "~1.8.1",
+    "q": "^1.5.0",
+    "serve-favicon": "~2.4.2"
   }
 }
