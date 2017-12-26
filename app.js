@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+const winston = require('winston')
 
 var calenderApi=require('./server/routes/api/calender-api');
 
@@ -13,7 +14,9 @@ var app = express();
 
 // view engine setup
 
-
+winston.log('info', 'Hello log files!', {
+  someKey: 'some-value'
+})
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

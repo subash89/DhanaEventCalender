@@ -66,3 +66,9 @@
      <div class="col-md-4"></div>
 
 </div>
+<div class="alert alert-success col-md-12"  *ngIf="result">
+  <strong>Success!</strong> Request submitted succesfully. 
+</div>
+<div class="alert alert-danger col-md-12"  *ngIf="result!==undefined && result==false">
+  <strong>Failed!</strong> Failed to submit the request.
+</div>

@@ -16,6 +16,7 @@ export class DhanaRequestComponent implements OnInit {
   lastName ?: string;
   errorMessage ?:string;
   mobile ?:string;
+  result ?:boolean;
   post:any;
   requiredAlert:string="*This field is required";
   validEmailAlert:string="* Valid email address required";
@@ -67,9 +68,11 @@ export class DhanaRequestComponent implements OnInit {
      self.eventLink=data.htmlLink;
       if(data.status !== undefined && data.status=='confirmed'){
         console.log("Event successfully created");
-        self.reminderAddResult=true;
+        self.result=true;
       }
     }).catch((err)=>{
+      self.result=false;
+
       console.log(err);
       console.log(err.status);
       console.log(err.error[0].summary);

@@ -6,7 +6,7 @@ var config= require('../../config');
 var userStore=require('./aws/dynamo-client');
 var stringFormat=require('string-template');
 var dateTimeformat = require('date-format');
-
+var logger=require('../../Logger');
 
 var dhanaUserStore=new userStore();
 /* GET users listing. */
@@ -99,7 +99,7 @@ router.get('/request/approve',function(req,res,next){
 
     var key = req.query.key; // $_GET["id"]
 
-    console.log(key);
+    logger.info(key);
     var jsonString=new Buffer(key, 'base64').toString('ascii');
     console.log(jsonString);
     var approvalInfo=JSON.parse(jsonString);
