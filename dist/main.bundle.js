@@ -319,7 +319,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dhana-approval/dhana-approval.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<hr>\n<div class=\"container\">\n    <div class=\"col-md-4\"></div>\n    <div class=\"col-md-4 text-left\">\n\n\n       <div class=\"form-group col-md-12\">\n         <div class=\"col-md-6\">\n             <button name=\"btn_register\" class=\"btn btn-success\" (click)=\"approve()\">Approve</button>\n         </div>\n         <div class=\"col-md-6\">\n         <button type=\"button\" class=\"btn btn-danger\" (click)=\"reject()\">Reject</button>\n         </div>\n       </div>\n       <div class=\"row form-group col-md-12 text-center\">\n          <label for=\"type\">Message to Requester</label>\n          <textarea [(ngModel)]=\"specialNotes\" type=\"text\" class=\"form-control\" id=\"type\" ng-model=\"type\" placeholder=\"Please be kind enough to mention the reason in case you reject the request\"></textarea>\n        </div>\n       <div class=\"col-md-4\">\n       </div>\n     </div>\n     <div class=\"col-md-4\"></div>\n\n</div>"
+module.exports = "\n<hr>\n<div class=\"container\">\n    <div class=\"col-md-4\"></div>\n    <form [formGroup]=\"rForm\">\n    <div class=\"col-md-4 text-left\">\n\n\n       <div class=\"form-group col-md-12\">\n         <div class=\"col-md-6\">\n             <button name=\"btn_register\" class=\"btn btn-success\" (click)=\"approve(rForm.value)\">Approve</button>\n         </div>\n         <div class=\"col-md-6\">\n         <button type=\"button\" class=\"btn btn-danger\" (click)=\"reject(rForm.value)\">Reject</button>\n         </div>\n       </div>\n       <div class=\"row form-group col-md-12 text-center\">\n          <label for=\"type\">Message to Requester</label>\n          <textarea formControlName=\"specialNotes\" type=\"text\" (focus)=\"showMessage=false\" class=\"form-control\" id=\"type\" placeholder=\"Please be kind enough to mention the reason in case you reject the request\"></textarea>\n          <div class=\"alert alert_animation alert-danger\" *ngIf=\"showMessage\">Special Note is required when rejecting the request.</div>\n\n        </div>\n       <div class=\"col-md-4\">\n       </div>\n     </div>\n    </form>\n     <div class=\"col-md-4\"></div>\n     <div class=\"alert alert-success col-md-12\"  *ngIf=\"result==true\">\n      <strong>Success!</strong> {{noticeType}} notice sent successfully. \n    </div>\n    <div class=\"alert alert-danger col-md-12\"  *ngIf=\"result!==undefined && result==false\">\n      <strong>Failed!</strong> Error occured while sending the notice.\n    </div>\n    \n</div>"
 
 /***/ }),
 
@@ -331,6 +331,7 @@ module.exports = "\n<hr>\n<div class=\"container\">\n    <div class=\"col-md-4\"
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_dhana_service__ = __webpack_require__("../../../../../src/app/services/dhana.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -343,10 +344,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var DhanaApprovalComponent = (function () {
-    function DhanaApprovalComponent(route, dhanaService) {
+    function DhanaApprovalComponent(route, dhanaService, fb) {
         this.route = route;
         this.dhanaService = dhanaService;
+        this.fb = fb;
+        this.rForm = this.fb.group({
+            'specialNotes': ''
+        });
     }
     DhanaApprovalComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -356,17 +362,36 @@ var DhanaApprovalComponent = (function () {
             _this.key = data.get("key");
         });
     };
-    DhanaApprovalComponent.prototype.approve = function () {
+    DhanaApprovalComponent.prototype.approve = function (formData) {
+        var _this = this;
         console.log("Approved: " + this.key);
         this.dhanaService.approveDhana(this.key).then(function (data) {
+            _this.noticeType = "Approval";
+            _this.result = true;
             console.log(data);
         })
             .catch(function (err) {
             console.log(err);
+            _this.result = false;
         });
     };
-    DhanaApprovalComponent.prototype.reject = function () {
+    DhanaApprovalComponent.prototype.reject = function (formData) {
+        var _this = this;
+        if (formData.specialNotes.length === 0) {
+            console.log("true");
+            this.showMessage = true;
+        }
+        else {
+            this.showMessage = false;
+            this.dhanaService.rejectDhana(this.key, formData.specialNotes).then(function (data) {
+                _this.noticeType = "Notice";
+                _this.result = true;
+            }).catch(function (err) {
+                _this.result = false;
+            });
+        }
         console.log("Rejected:" + this.key);
+        console.log(formData.specialNotes.length);
     };
     DhanaApprovalComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -374,7 +399,7 @@ var DhanaApprovalComponent = (function () {
             template: __webpack_require__("../../../../../src/app/dhana-approval/dhana-approval.component.html"),
             styles: [__webpack_require__("../../../../../src/app/dhana-approval/dhana-approval.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_dhana_service__["a" /* DhanaService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */], __WEBPACK_IMPORTED_MODULE_2__services_dhana_service__["a" /* DhanaService */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]])
     ], DhanaApprovalComponent);
     return DhanaApprovalComponent;
 }());
@@ -610,6 +635,9 @@ var DhanaService = (function () {
     };
     DhanaService.prototype.approveDhana = function (key) {
         return this.http.get('/calender/request/approve?key=' + key).toPromise();
+    };
+    DhanaService.prototype.rejectDhana = function (key, message) {
+        return this.http.post('/calender/request/reject?key=' + key, { 'message': message }).toPromise();
     };
     DhanaService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),

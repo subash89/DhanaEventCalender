@@ -55,4 +55,11 @@ export class DhanaService {
 
 
    }
+
+   rejectDhana(key:string,message:string):Promise<any>{
+
+    return this.http.post('/calender/request/reject?key='+key,{'message':message}).toPromise();
+
+
+  }
 }

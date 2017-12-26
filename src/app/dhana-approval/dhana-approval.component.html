@@ -2,24 +2,34 @@
 <hr>
 <div class="container">
     <div class="col-md-4"></div>
+    <form [formGroup]="rForm">
     <div class="col-md-4 text-left">
 
 
        <div class="form-group col-md-12">
          <div class="col-md-6">
-             <button name="btn_register" class="btn btn-success" (click)="approve()">Approve</button>
+             <button name="btn_register" class="btn btn-success" (click)="approve(rForm.value)">Approve</button>
          </div>
          <div class="col-md-6">
-         <button type="button" class="btn btn-danger" (click)="reject()">Reject</button>
+         <button type="button" class="btn btn-danger" (click)="reject(rForm.value)">Reject</button>
          </div>
        </div>
        <div class="row form-group col-md-12 text-center">
           <label for="type">Message to Requester</label>
-          <textarea [(ngModel)]="specialNotes" type="text" class="form-control" id="type" ng-model="type" placeholder="Please be kind enough to mention the reason in case you reject the request"></textarea>
+          <textarea formControlName="specialNotes" type="text" (focus)="showMessage=false" class="form-control" id="type" placeholder="Please be kind enough to mention the reason in case you reject the request"></textarea>
+          <div class="alert alert_animation alert-danger" *ngIf="showMessage">Special Note is required when rejecting the request.</div>
+
         </div>
        <div class="col-md-4">
        </div>
      </div>
+    </form>
      <div class="col-md-4"></div>
-
+     <div class="alert alert-success col-md-12"  *ngIf="result==true">
+      <strong>Success!</strong> {{noticeType}} notice sent successfully. 
+    </div>
+    <div class="alert alert-danger col-md-12"  *ngIf="result!==undefined && result==false">
+      <strong>Failed!</strong> Error occured while sending the notice.
+    </div>
+    
 </div>
