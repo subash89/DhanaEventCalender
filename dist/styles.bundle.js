@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\n.alert_animation {\n\n    -webkit-animation: 2s alertAnim forwards;\n\n            animation: 2s alertAnim forwards;\n}\n\n.alert {\n    padding: 2px;\n    margin: 2px;\n    border: 1px solid transparent;\n    border-radius: 10px;\n}\n\n@-webkit-keyframes alertAnim {\n    from {\n        opacity:0;\n        -webkit-transform: translateX(-20px);\n                transform: translateX(-20px);\n    }\n    to {\n        opacity:1;\n        -webkit-transform: translateX(0);\n                transform: translateX(0);\n    }\n}\n\n@keyframes alertAnim {\n    from {\n        opacity:0;\n        -webkit-transform: translateX(-20px);\n                transform: translateX(-20px);\n    }\n    to {\n        opacity:1;\n        -webkit-transform: translateX(0);\n                transform: translateX(0);\n    }\n}", ""]);
 
 // exports
 

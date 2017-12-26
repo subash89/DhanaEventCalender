@@ -178,10 +178,12 @@ router.put('/event', function (req, res, next) {
                 console.log(metaData);
                 let fullName=metaData.firstName+' '+ metaData.lastName;
                 let email=metaData.email;
+                let mobile=metaData.mobile;
+
                 let dayOfMonth=metaData.dayOfMonth;
 
                 console.log("before adding user");
-                dhanaUserStore.createUser(fullName,email,'0022212222',dayOfMonth).then((dynamoData)=>{
+                dhanaUserStore.createUser(fullName,email,mobile,dayOfMonth).then((dynamoData)=>{
                     console.log("User"+fullName+" added to data base");
                     console.log("promises called");
                     res.send(data);

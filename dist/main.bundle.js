@@ -38,7 +38,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/add-dhana/add-dhana.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<hr>\n<h1>Add Dhana Event</h1>\n<hr>\n<div class=\"col-md-4\">\n</div>\n\n<div class=\"container\">\n\n     <div class=\"col-md-4 text-left\">\n        <div class=\"row form-group\">\n          <label for=\"fName\">First Name</label>\n          <input [(ngModel)]=\"firstName\" type=\"text\" class=\"form-control\" id=\"fName\" placeholder=\"Enter First Name\">\n        </div>\n        <div class=\"row form-group\">\n          <label for=\"payee\">Last Name</label>\n          <input [(ngModel)]=\"lastName\" type=\"text\" class=\"form-control\" id=\"payee\" ng-model=\"payee\" placeholder=\"Enter Last Name\">\n        </div>\n        <div class=\"row form-group\">\n          <label for=\"payee\">email</label>\n          <input [(ngModel)]=\"email\" type=\"text\" class=\"form-control\" id=\"payee\" ng-model=\"payee\" placeholder=\"Enter Email Adress\">\n        </div>\n      \n        <div class=\"row form-group\">\n          <label for=\"day\">Day of the Month</label>\n          <select [(ngModel)]=\"dayOfMonth\">\n              <option *ngFor=\"let x of days\" value=\"{{x}}\">{{x}}</option>\n            </select>\n        </div>\n        <div class=\"row form-group\">\n          <label for=\"type\">Special Notes</label>\n          <textarea [(ngModel)]=\"specialNotes\" type=\"text\" class=\"form-control\" id=\"type\" ng-model=\"type\" placeholder=\"Enter Any special note\"></textarea>\n        </div>\n        <div class=\"col-md-4\">\n        </div>\n        <div class=\"form-group\" class=\"col-md-8\">\n          <div class=\"col-md-4\">\n              <button name=\"btn_register\" class=\"btn btn-primary\" (click)=\"addDhana()\">Add</button>\n          </div>\n          <div class=\"col-md-4\">\n          <button type=\"button\" class=\"btn btn-default\">Cancel</button>\n          </div>\n        </div>\n      \n        <div class=\"col-md-4\">\n        </div>\n      </div>\n </div>\n<div class=\"col-md-4\">\n</div>\n\n<div class=\"alert alert-success col-md-12\"  *ngIf=\"reminderAddResult\">\n  <strong>Success!</strong> Reminder added succesfully. <a href=\"{{eventLink}}\" target=\"_blank\">Click Here</a> to view the event. \n</div>\n<div class=\"alert alert-danger col-md-12\"  *ngIf=\"reminderAddResult!==undefined && reminderAddResult==false\">\n  <strong>Failed!</strong> {{errorMessage}}\n</div>\n\n"
+module.exports = "<hr>\n<h1>Add Dhana Event</h1>\n<hr>\n<div class=\"col-md-4\">\n</div>\n\n<div class=\"container\"  *ngIf=\"!name; else forminfo\">\n<form [formGroup]=\"rForm\" (ngSubmit)=\"addDhana(rForm.value)\"> \n     <div class=\"col-md-4 text-left\">\n\n        <div class=\"row form-group\">\n          <label for=\"fName\">First Name</label>\n          <input formControlName=\"firstName\" type=\"text\" class=\"form-control\" id=\"fName\" placeholder=\"Enter First Name\">\n          <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched\">{{ requiredAlert }}</div>\n\n        </div>\n        <div class=\"row form-group\">\n          <label for=\"payee\">Last Name</label>\n          <input  type=\"text\" class=\"form-control\" formControlName=\"lastName\" id=\"lName\" placeholder=\"Enter Last Name\">\n          <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched\">{{ requiredAlert }}</div>\n\n        </div>\n        <div class=\"row form-group\">\n          <label for=\"payee\">Email</label>\n          <input type=\"text\" class=\"form-control\" id=\"email\" formControlName=\"email\" placeholder=\"Enter Email Adress\">\n          <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['email'].valid && rForm.controls['email'].touched\">{{ validEmailAlert }}</div>\n\n        </div>\n        <div class=\"row form-group\">\n            <label for=\"mobile\">Mobile Number</label>\n            <input type=\"text\" class=\"form-control\" id=\"mobile\" formControlName=\"mobile\" placeholder=\"Enter Mobile Number\">\n            <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['mobile'].valid && rForm.controls['mobile'].touched\">{{ validMobilelAlert }}</div>\n\n          </div>\n        \n        <div class=\"row form-group\">\n          <label for=\"day\">Day of the Month</label>\n          <select formControlName=\"dayOfMonth\">\n              <option *ngFor=\"let x of days\" value=\"{{x}}\">{{x}}</option>\n            </select>\n        </div>\n        <div class=\"row form-group\">\n          <label for=\"type\">Special Notes</label>\n          <textarea formControlName=\"specialNotes\" name=\"specialNotes\" type=\"text\" class=\"form-control\" id=\"type\" placeholder=\"Enter Any special note\"></textarea>\n        </div>\n        <div class=\"col-md-4\">\n        </div>\n        <div class=\"form-group\" class=\"col-md-8\">\n          <div class=\"col-md-4\">\n              <button type=\"submit\" name=\"btn_register\" class=\"btn btn-primary\" [disabled]=\"!rForm.valid\">Add</button>\n          </div>\n          <div class=\"col-md-4\">\n          <button type=\"button\" class=\"btn btn-default\">Cancel</button>\n          </div>\n        </div>\n      \n        <div class=\"col-md-4\">\n        </div>\n      </div>\n\n    \n\n    </form>\n\n </div>\n<div class=\"col-md-4\">\n</div>\n\n<div class=\"alert alert-success col-md-12\"  *ngIf=\"reminderAddResult\">\n  <strong>Success!</strong> Reminder added succesfully. <a href=\"{{eventLink}}\" target=\"_blank\">Click Here</a> to view the event. \n</div>\n<div class=\"alert alert-danger col-md-12\"  *ngIf=\"reminderAddResult!==undefined && reminderAddResult==false\">\n  <strong>Failed!</strong> {{errorMessage}}\n</div>\n\n"
 
 /***/ }),
 
@@ -50,6 +50,7 @@ module.exports = "<hr>\n<h1>Add Dhana Event</h1>\n<hr>\n<div class=\"col-md-4\">
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_dhana_service__ = __webpack_require__("../../../../../src/app/services/dhana.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_DhanaRequest__ = __webpack_require__("../../../../../src/app/models/DhanaRequest.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,12 +63,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AddDhanaComponent = (function () {
-    function AddDhanaComponent(dhanaService) {
+    function AddDhanaComponent(dhanaService, fb) {
         this.dhanaService = dhanaService;
-        this.firstName = "Asanka";
-        this.lastName = "Dissanayake";
+        this.fb = fb;
         this.dayOfMonth = 5;
+        this.requiredAlert = "*This field is required";
+        this.validEmailAlert = "* Valid email address required";
+        this.validMobilelAlert = "* Valid mobile number required";
         this.reminderAddResult = undefined;
         this.eventLink = '';
         var d = [];
@@ -75,14 +79,30 @@ var AddDhanaComponent = (function () {
             d.push(i);
         }
         this.days = d;
+        this.rForm = this.fb.group({
+            'firstName': [null, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].required],
+            'lastName': [null, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].required],
+            'email': [null, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].email])],
+            'mobile': [null, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].pattern('[0-9]*'), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].minLength(10), __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].maxLength(10)])],
+            'dayOfMonth': [null, __WEBPACK_IMPORTED_MODULE_3__angular_forms__["d" /* Validators */].required],
+            'specialNotes': ''
+        });
     }
     AddDhanaComponent.prototype.ngOnInit = function () {
     };
-    AddDhanaComponent.prototype.addDhana = function () {
+    AddDhanaComponent.prototype.addDhana = function (post) {
         var _this = this;
         var self = this;
+        self.firstName = post.firstName;
+        self.lastName = post.lastName;
+        self.email = post.email;
+        self.mobile = post.mobile;
+        self.dayOfMonth = post.dayOfMonth;
+        self.specialNotes = post.specialNotes;
+        console.log(post);
+        console.log(this.firstName);
         this.dhanaService
-            .addDhana(new __WEBPACK_IMPORTED_MODULE_2__models_DhanaRequest__["a" /* DhanaRequest */](this.firstName, this.lastName, this.email, this.dayOfMonth, this.specialNotes))
+            .addDhana(new __WEBPACK_IMPORTED_MODULE_2__models_DhanaRequest__["a" /* ReccurringDhanaRequest */](this.firstName, this.lastName, this.email, this.mobile, this.specialNotes, this.dayOfMonth))
             .then(function (data) {
             console.log(data);
             console.log(data.htmlLink);
@@ -111,7 +131,7 @@ var AddDhanaComponent = (function () {
             template: __webpack_require__("../../../../../src/app/add-dhana/add-dhana.component.html"),
             styles: [__webpack_require__("../../../../../src/app/add-dhana/add-dhana.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_dhana_service__["a" /* DhanaService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_dhana_service__["a" /* DhanaService */], __WEBPACK_IMPORTED_MODULE_3__angular_forms__["a" /* FormBuilder */]])
     ], AddDhanaComponent);
     return AddDhanaComponent;
 }());
@@ -225,14 +245,14 @@ var AppComponent = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_dhana_service__ = __webpack_require__("../../../../../src/app/services/dhana.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__add_dhana_add_dhana_component__ = __webpack_require__("../../../../../src/app/add-dhana/add-dhana.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_routing_module__ = __webpack_require__("../../../../../src/app/app-routing.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dhana_request_dhana_request_component__ = __webpack_require__("../../../../../src/app/dhana-request/dhana-request.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__dhana_approval_dhana_approval_component__ = __webpack_require__("../../../../../src/app/dhana-approval/dhana-approval.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_dhana_service__ = __webpack_require__("../../../../../src/app/services/dhana.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__("../../../../../src/app/app.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__add_dhana_add_dhana_component__ = __webpack_require__("../../../../../src/app/add-dhana/add-dhana.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app_routing_module__ = __webpack_require__("../../../../../src/app/app-routing.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__dhana_request_dhana_request_component__ = __webpack_require__("../../../../../src/app/dhana-request/dhana-request.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__dhana_approval_dhana_approval_component__ = __webpack_require__("../../../../../src/app/dhana-approval/dhana-approval.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -255,19 +275,20 @@ var AppModule = (function () {
     AppModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["I" /* NgModule */])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */],
-                __WEBPACK_IMPORTED_MODULE_6__add_dhana_add_dhana_component__["a" /* AddDhanaComponent */],
-                __WEBPACK_IMPORTED_MODULE_8__dhana_request_dhana_request_component__["a" /* DhanaRequestComponent */],
-                __WEBPACK_IMPORTED_MODULE_9__dhana_approval_dhana_approval_component__["a" /* DhanaApprovalComponent */]
+                __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
+                __WEBPACK_IMPORTED_MODULE_5__add_dhana_add_dhana_component__["a" /* AddDhanaComponent */],
+                __WEBPACK_IMPORTED_MODULE_7__dhana_request_dhana_request_component__["a" /* DhanaRequestComponent */],
+                __WEBPACK_IMPORTED_MODULE_8__dhana_approval_dhana_approval_component__["a" /* DhanaApprovalComponent */]
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_7__app_routing_module__["a" /* AppRoutingModule */],
-                __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormsModule */],
-                __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["b" /* HttpClientModule */]
+                __WEBPACK_IMPORTED_MODULE_6__app_routing_module__["a" /* AppRoutingModule */],
+                __WEBPACK_IMPORTED_MODULE_9__angular_forms__["b" /* FormsModule */],
+                __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["b" /* HttpClientModule */],
+                __WEBPACK_IMPORTED_MODULE_9__angular_forms__["c" /* ReactiveFormsModule */]
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_4__services_dhana_service__["a" /* DhanaService */]],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_5__app_component__["a" /* AppComponent */]]
+            providers: [__WEBPACK_IMPORTED_MODULE_3__services_dhana_service__["a" /* DhanaService */]],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
     return AppModule;
@@ -383,7 +404,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dhana-request/dhana-request.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<button name=\"btn_view_cal\" class=\"btn btn-success \" (click)=\"viewCal= (!viewCal)\">View/Hide Calender</button>\n\n<div *ngIf=\"viewCal\">\n<iframe src=\"https://calendar.google.com/calendar/embed?src=jfktuipfgori7d3ate1he3t8nc%40group.calendar.google.com&ctz=America%2FNew_York\" style=\"border: 0\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>\n</div>\n<hr>\n<h1>Dhana Request Form</h1>\n<div class=\"container\">\n    <div class=\"col-md-4\"></div>\n    <div class=\"col-md-4 text-left\">\n       <div class=\"row form-group\">\n         <label for=\"fName\">First Name</label>\n         <input [(ngModel)]=\"firstName\" type=\"text\" class=\"form-control\" id=\"fName\" placeholder=\"Enter First Name\">\n       </div>\n       <div class=\"row form-group\">\n         <label for=\"payee\">Last Name</label>\n         <input [(ngModel)]=\"lastName\" type=\"text\" class=\"form-control\" id=\"payee\" ng-model=\"payee\" placeholder=\"Enter Last Name\">\n       </div>\n       <div class=\"row form-group\">\n         <label for=\"payee\">email</label>\n         <input [(ngModel)]=\"email\" type=\"text\" class=\"form-control\" id=\"payee\" ng-model=\"payee\" placeholder=\"Enter Email Adress\">\n       </div>\n     \n       <div class=\"row form-group\">\n         <label for=\"day\">Date</label>\n         <input  type=\"date\" [(ngModel)]=\"date\" value=\"{{dateString}}\" class=\"form-control\" id=\"day\" placeholder=\"Enter Day of the month you want to offer Dhana\">\n\n       </div>\n        <div class=\"row form-group\">\n         <label for=\"type\">Special Notes</label>\n         <textarea [(ngModel)]=\"specialNotes\" type=\"text\" class=\"form-control\" id=\"type\" ng-model=\"type\" placeholder=\"Enter Any special note\"></textarea>\n       </div>\n       <div class=\"col-md-4\">\n       </div>\n       <div class=\"form-group\" class=\"col-md-12\">\n         <div class=\"col-md-6\">\n             <button name=\"btn_register\" class=\"btn btn-primary\" (click)=\"requestDhana()\">Request</button>\n         </div>\n         <div class=\"col-md-6\">\n         <button type=\"button\" class=\"btn btn-default\">Cancel</button>\n         </div>\n       </div>\n     \n       <div class=\"col-md-4\">\n       </div>\n     </div>\n     <div class=\"col-md-4\"></div>\n\n</div>"
+module.exports = "\n<button name=\"btn_view_cal\" class=\"btn btn-success \" (click)=\"viewCal= (!viewCal)\">View/Hide Calender</button>\n\n<div *ngIf=\"viewCal\">\n<iframe src=\"https://calendar.google.com/calendar/embed?src=jfktuipfgori7d3ate1he3t8nc%40group.calendar.google.com&ctz=America%2FNew_York\" style=\"border: 0\" width=\"800\" height=\"600\" frameborder=\"0\" scrolling=\"no\"></iframe>\n</div>\n<hr>\n<h1>Dhana Request Form</h1>\n<div class=\"container\"  *ngIf=\"!name; else forminfo\">\n    <div class=\"col-md-4\"></div>\n    <form [formGroup]=\"rForm\" (ngSubmit)=\"requestDhana(rForm.value)\"> \n\n    <div class=\"col-md-4 text-left\">\n        <div class=\"row form-group\">\n            <label for=\"fName\">First Name</label>\n            <input formControlName=\"firstName\" type=\"text\" class=\"form-control\" id=\"fName\" placeholder=\"Enter First Name\">\n            <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched\">{{ requiredAlert }}</div>\n  \n          </div>\n          <div class=\"row form-group\">\n            <label for=\"payee\">Last Name</label>\n            <input  type=\"text\" class=\"form-control\" formControlName=\"lastName\" id=\"lName\" placeholder=\"Enter Last Name\">\n            <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched\">{{ requiredAlert }}</div>\n  \n          </div>\n          <div class=\"row form-group\">\n            <label for=\"payee\">Email</label>\n            <input type=\"text\" class=\"form-control\" id=\"email\" formControlName=\"email\" placeholder=\"Enter Email Adress\">\n            <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['email'].valid && rForm.controls['email'].touched\">{{ validEmailAlert }}</div>\n  \n          </div>\n          <div class=\"row form-group\">\n              <label for=\"mobile\">Mobile Number</label>\n              <input type=\"text\" class=\"form-control\" id=\"mobile\" formControlName=\"mobile\" placeholder=\"Enter Mobile Number\">\n              <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['mobile'].valid && rForm.controls['mobile'].touched\">{{ validMobilelAlert }}</div>\n  \n            </div>\n     \n       <div class=\"row form-group\">\n         <label for=\"day\">Date</label>\n         <input  type=\"date\"  formControlName=\"date\">\n         <div class=\"alert alert_animation alert-danger\" *ngIf=\"!rForm.controls['date'].valid && rForm.controls['date'].touched\">{{ requiredAlert }}</div>\n\n\n       </div>\n        <div class=\"row form-group\">\n         <label for=\"type\">Special Notes</label>\n         <textarea formControlName=\"specialNotes\" type=\"text\" class=\"form-control\" id=\"type\" placeholder=\"Enter Any special note\"></textarea>\n       </div>\n       <div class=\"col-md-4\">\n       </div>\n       <div class=\"form-group\" class=\"col-md-12\">\n         <div class=\"col-md-6\">\n             <button type=\"submit\" name=\"btn_register\" class=\"btn btn-primary\" [disabled]=\"!rForm.valid\">Request</button>\n         </div>\n         <div class=\"col-md-6\">\n         <button type=\"button\" class=\"btn btn-default\">Cancel</button>\n         </div>\n       </div>\n     \n       <div class=\"col-md-4\">\n       </div>\n     </div>\n</form>\n     \n     <div class=\"col-md-4\"></div>\n\n</div>"
 
 /***/ }),
 
@@ -393,6 +414,9 @@ module.exports = "\n<button name=\"btn_view_cal\" class=\"btn btn-success \" (cl
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DhanaRequestComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_forms__ = __webpack_require__("../../../forms/esm5/forms.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_dhana_service__ = __webpack_require__("../../../../../src/app/services/dhana.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_DhanaRequest__ = __webpack_require__("../../../../../src/app/models/DhanaRequest.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -403,38 +427,63 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var DhanaRequestComponent = (function () {
-    function DhanaRequestComponent() {
-        this.firstName = "Asanka";
-        this.lastName = "Dissanayake";
+    function DhanaRequestComponent(dhanaService, fb) {
+        this.dhanaService = dhanaService;
+        this.fb = fb;
+        this.requiredAlert = "*This field is required";
+        this.validEmailAlert = "* Valid email address required";
+        this.validMobilelAlert = "* Valid mobile number required";
         this.date = new Date();
         this.reminderAddResult = undefined;
         this.eventLink = '';
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        var dateString;
-        var monthString;
-        if (dd < 10) {
-            dateString = '0' + dd;
-        }
-        if (mm < 10) {
-            monthString = '0' + mm;
-        }
-        //var todayString = yyyy+"-" +monthString +"-"+dateString;
-        var todayString = monthString + "/" + dateString + "/" + yyyy;
-        this.dateString = todayString;
-        var d = [];
-        for (var i = 1; i < 32; i++) {
-            d.push(i);
-        }
-        this.days = d;
+        this.rForm = this.fb.group({
+            'firstName': [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
+            'lastName': [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
+            'email': [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].email])],
+            'mobile': [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].compose([__WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].pattern('[0-9]*'), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].minLength(10), __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].maxLength(10)])],
+            'date': [null, __WEBPACK_IMPORTED_MODULE_1__angular_forms__["d" /* Validators */].required],
+            'specialNotes': ''
+        });
     }
     DhanaRequestComponent.prototype.ngOnInit = function () {
     };
-    DhanaRequestComponent.prototype.requestDhana = function () {
-        console.log(this.date);
+    DhanaRequestComponent.prototype.requestDhana = function (post) {
+        var _this = this;
+        var self = this;
+        self.firstName = post.firstName;
+        self.lastName = post.lastName;
+        self.email = post.email;
+        self.mobile = post.mobile;
+        self.date = post.date;
+        self.specialNotes = post.specialNotes;
+        console.log(post);
+        this.dhanaService
+            .requestDhana(new __WEBPACK_IMPORTED_MODULE_3__models_DhanaRequest__["b" /* UpdateDhanaRequest */](this.firstName, this.lastName, this.email, this.mobile, this.specialNotes, this.date))
+            .then(function (data) {
+            console.log(data);
+            console.log(data.htmlLink);
+            console.log(_this);
+            self.eventLink = data.htmlLink;
+            if (data.status !== undefined && data.status == 'confirmed') {
+                console.log("Event successfully created");
+                self.reminderAddResult = true;
+            }
+        }).catch(function (err) {
+            console.log(err);
+            console.log(err.status);
+            console.log(err.error[0].summary);
+            if (err.status == 403) {
+                self.errorMessage = "Dhana slot is already taken." + err.error[0].summary;
+            }
+            else {
+                self.errorMessage = "Error occured while adding dhana slot. May be it is already taken";
+            }
+            self.reminderAddResult = false;
+        });
     };
     DhanaRequestComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -442,7 +491,7 @@ var DhanaRequestComponent = (function () {
             template: __webpack_require__("../../../../../src/app/dhana-request/dhana-request.component.html"),
             styles: [__webpack_require__("../../../../../src/app/dhana-request/dhana-request.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_dhana_service__["a" /* DhanaService */], __WEBPACK_IMPORTED_MODULE_1__angular_forms__["a" /* FormBuilder */]])
     ], DhanaRequestComponent);
     return DhanaRequestComponent;
 }());
@@ -455,13 +504,25 @@ var DhanaRequestComponent = (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DhanaRequest; });
+/* unused harmony export DhanaRequest */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ReccurringDhanaRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return UpdateDhanaRequest; });
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var DhanaRequest = (function () {
-    function DhanaRequest(firstName, lastName, email, dayOfMonth, specialNotes) {
+    function DhanaRequest(firstName, lastName, email, mobile, specialNotes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.dayOfMonth = dayOfMonth;
+        this.mobile = mobile;
         this.specialNotes = specialNotes;
     }
     DhanaRequest.prototype.getFullName = function () {
@@ -469,6 +530,26 @@ var DhanaRequest = (function () {
     };
     return DhanaRequest;
 }());
+
+var ReccurringDhanaRequest = (function (_super) {
+    __extends(ReccurringDhanaRequest, _super);
+    function ReccurringDhanaRequest(fName, lname, _email, _mobile, _specialNotes, _dayofMonth) {
+        var _this = _super.call(this, fName, lname, _email, _mobile, _specialNotes) || this;
+        _this.dayOfMonth = _dayofMonth;
+        return _this;
+    }
+    return ReccurringDhanaRequest;
+}(DhanaRequest));
+
+var UpdateDhanaRequest = (function (_super) {
+    __extends(UpdateDhanaRequest, _super);
+    function UpdateDhanaRequest(fName, lname, _email, _mobile, _specialNotes, _date) {
+        var _this = _super.call(this, fName, lname, _email, _mobile, _specialNotes) || this;
+        _this.date = _date;
+        return _this;
+    }
+    return UpdateDhanaRequest;
+}(DhanaRequest));
 
 
 
@@ -523,6 +604,9 @@ var DhanaService = (function () {
             }
         };
         return this.http.put('/calender/event', event).toPromise();
+    };
+    DhanaService.prototype.requestDhana = function (request) {
+        return this.http.post('/calender/request/event', request).toPromise();
     };
     DhanaService.prototype.approveDhana = function (key) {
         return this.http.get('/calender/request/approve?key=' + key).toPromise();

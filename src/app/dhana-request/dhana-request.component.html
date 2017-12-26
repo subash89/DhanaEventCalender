@@ -6,36 +6,52 @@
 </div>
 <hr>
 <h1>Dhana Request Form</h1>
-<div class="container">
+<div class="container"  *ngIf="!name; else forminfo">
     <div class="col-md-4"></div>
+    <form [formGroup]="rForm" (ngSubmit)="requestDhana(rForm.value)"> 
+
     <div class="col-md-4 text-left">
-       <div class="row form-group">
-         <label for="fName">First Name</label>
-         <input [(ngModel)]="firstName" type="text" class="form-control" id="fName" placeholder="Enter First Name">
-       </div>
-       <div class="row form-group">
-         <label for="payee">Last Name</label>
-         <input [(ngModel)]="lastName" type="text" class="form-control" id="payee" ng-model="payee" placeholder="Enter Last Name">
-       </div>
-       <div class="row form-group">
-         <label for="payee">email</label>
-         <input [(ngModel)]="email" type="text" class="form-control" id="payee" ng-model="payee" placeholder="Enter Email Adress">
-       </div>
+        <div class="row form-group">
+            <label for="fName">First Name</label>
+            <input formControlName="firstName" type="text" class="form-control" id="fName" placeholder="Enter First Name">
+            <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched">{{ requiredAlert }}</div>
+  
+          </div>
+          <div class="row form-group">
+            <label for="payee">Last Name</label>
+            <input  type="text" class="form-control" formControlName="lastName" id="lName" placeholder="Enter Last Name">
+            <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched">{{ requiredAlert }}</div>
+  
+          </div>
+          <div class="row form-group">
+            <label for="payee">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter Email Adress">
+            <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">{{ validEmailAlert }}</div>
+  
+          </div>
+          <div class="row form-group">
+              <label for="mobile">Mobile Number</label>
+              <input type="text" class="form-control" id="mobile" formControlName="mobile" placeholder="Enter Mobile Number">
+              <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['mobile'].valid && rForm.controls['mobile'].touched">{{ validMobilelAlert }}</div>
+  
+            </div>
      
        <div class="row form-group">
          <label for="day">Date</label>
-         <input  type="date" [(ngModel)]="date" value="{{dateString}}" class="form-control" id="day" placeholder="Enter Day of the month you want to offer Dhana">
+         <input  type="date"  formControlName="date">
+         <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['date'].valid && rForm.controls['date'].touched">{{ requiredAlert }}</div>
+
 
        </div>
         <div class="row form-group">
          <label for="type">Special Notes</label>
-         <textarea [(ngModel)]="specialNotes" type="text" class="form-control" id="type" ng-model="type" placeholder="Enter Any special note"></textarea>
+         <textarea formControlName="specialNotes" type="text" class="form-control" id="type" placeholder="Enter Any special note"></textarea>
        </div>
        <div class="col-md-4">
        </div>
        <div class="form-group" class="col-md-12">
          <div class="col-md-6">
-             <button name="btn_register" class="btn btn-primary" (click)="requestDhana()">Request</button>
+             <button type="submit" name="btn_register" class="btn btn-primary" [disabled]="!rForm.valid">Request</button>
          </div>
          <div class="col-md-6">
          <button type="button" class="btn btn-default">Cancel</button>
@@ -45,6 +61,8 @@
        <div class="col-md-4">
        </div>
      </div>
+</form>
+     
      <div class="col-md-4"></div>
 
 </div>

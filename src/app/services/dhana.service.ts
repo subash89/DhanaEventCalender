@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DhanaRequest } from '../models/DhanaRequest';
+import { UpdateDhanaRequest, ReccurringDhanaRequest } from '../models/DhanaRequest';
 import { Observable } from 'rxjs/Observable';
 const am_11:number=60*60*11*1000;
 const pm_1:number=60*60*13*1000;
@@ -9,7 +9,7 @@ const pm_1:number=60*60*13*1000;
 export class DhanaService {
 
   constructor(private http:HttpClient) { }
-  addDhana(request: DhanaRequest): Promise<any>{
+  addDhana(request: ReccurringDhanaRequest): Promise<any>{
 
     let baseDate= new Date("2018-01-"+request.dayOfMonth);
     let startDate=new Date(baseDate.getTime()+am_11);
@@ -39,6 +39,13 @@ export class DhanaService {
       ]
     }};
     return this.http.put('/calender/event',event).toPromise();
+
+   }
+
+   requestDhana(request: UpdateDhanaRequest): Promise<any>{
+
+
+    return this.http.post('/calender/request/event',request).toPromise();
 
    }
 
