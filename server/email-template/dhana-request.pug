@@ -1,0 +1,66 @@
+html
+  head
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    style(type='text/css').
+      #bodyCellFooter{margin:0; padding:0; width:100% !important;padding-top:39px;padding-bottom:15px;}
+      #templateContainer{
+      border: 1px solid #e2e2e2;
+      border-radius: 4px;
+      background-clip: padding-box;
+      border-spacing: 0;
+      }
+      p {
+      color:#545454;
+      display:block;
+      font-family:Helvetica;
+      font-size:16px;
+      line-height:1.500em;
+      font-style:normal;
+      font-weight:normal;
+      letter-spacing:normal;
+      margin-top:0;
+      margin-right:0;
+      margin-bottom:15px;
+      margin-left:0;
+      text-align:left;
+      }
+      .bodyContent{
+      color:#505050;
+      font-family:Helvetica;
+      font-size:14px;
+      line-height:150%;
+      padding-top:3.143em;
+      padding-right:3.5em;
+      padding-left:3.5em;
+      padding-bottom:3.143em;
+      text-align:left;
+      }
+      a.blue-btn {
+      background: #5098ea;
+      display: inline-block;
+      color: #FFFFFF;
+      border-top:10px solid #5098ea;
+      border-bottom:10px solid #5098ea;
+      border-left:20px solid #5098ea;
+      border-right:20px solid #5098ea;
+      text-decoration: none;
+      font-size: 14px;
+      margin-top: 1.0em;
+      border-radius: 3px 3px 3px 3px;
+      background-clip: padding-box;
+      }
+  body(yahoo='', bgcolor='#ffffff')
+    table(width='100%', bgcolor='#ffffff', border='0', cellpadding='10', cellspacing='0')
+      tr
+        td
+          table.content(bgcolor='#ffffff', align='center', cellpadding='0', cellspacing='0', border='0')
+            tr
+              td(align='center', valign='top')
+                table#templateContainer(border='0', cellpadding='0', cellspacing='0', width='100%')
+                  tr
+                    td.bodyContent(valign='top', mc:edit='body_content')
+                      p Hi #{current_owner} 
+                      p
+                        | #{requestor} is requeting to obtain your Dhana slot on #{date}. To allow or deny the request, please click next
+                      a.blue-btn(href=url)
+                        strong Next

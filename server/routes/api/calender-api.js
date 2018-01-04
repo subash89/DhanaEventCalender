@@ -7,13 +7,14 @@ var userStore=require('./aws/dynamo-client');
 var stringFormat=require('string-template');
 var dateTimeformat = require('date-format');
 var logger=require('../../Logger');
+var email_generator=require('../../utils/email-generator');
 
 var dhanaUserStore=new userStore();
 /* GET users listing. */
 router.get('/list', function (req, res, next) {
 
     calender_proxy.getEvents().then(function (data) {
-        console.log("promises called");
+        logger.
         res.send(data);
     }).catch(function (err) {
         res.status(500);
@@ -285,7 +286,17 @@ router.put('/event', function (req, res, next) {
 
 
 function getRequestEmailTemplate(requestor,owner,date,eventId){
-    return '\r\n<html>\r\n\r\n<head>\r\n  <meta http-equiv=\"Content-Type\" content=\"text\/html; charset=utf-8\" \/>\r\n\r\n  <style type=\"text\/css\">\r\n   \r\n\r\n    #bodyCellFooter{margin:0; padding:0; width:100% !important;padding-top:39px;padding-bottom:15px;}\r\n\r\n    #templateContainer{\r\n      border: 1px solid #e2e2e2;\r\n      border-radius: 4px;\r\n      background-clip: padding-box;\r\n      border-spacing: 0;\r\n    }\r\n\r\n    p {\r\n      color:#545454;\r\n      display:block;\r\n      font-family:Helvetica;\r\n      font-size:16px;\r\n      line-height:1.500em;\r\n      font-style:normal;\r\n      font-weight:normal;\r\n      letter-spacing:normal;\r\n      margin-top:0;\r\n      margin-right:0;\r\n      margin-bottom:15px;\r\n      margin-left:0;\r\n      text-align:left;\r\n    }\r\n\r\n    .bodyContent{\r\n      color:#505050;\r\n      font-family:Helvetica;\r\n      font-size:14px;\r\n      line-height:150%;\r\n      padding-top:3.143em;\r\n      padding-right:3.5em;\r\n      padding-left:3.5em;\r\n      padding-bottom:3.143em;\r\n      text-align:left;\r\n    }\r\n\r\n    a.blue-btn {\r\n      background: #5098ea;\r\n      display: inline-block;\r\n      color: #FFFFFF;\r\n      border-top:10px solid #5098ea;\r\n      border-bottom:10px solid #5098ea;\r\n      border-left:20px solid #5098ea;\r\n      border-right:20px solid #5098ea;\r\n      text-decoration: none;\r\n      font-size: 14px;\r\n      margin-top: 1.0em;\r\n      border-radius: 3px 3px 3px 3px;\r\n      background-clip: padding-box;\r\n    }\r\n\r\n  <\/style>\r\n<\/head>\r\n\r\n<body yahoo bgcolor=\"#ffffff\">\r\n<table width=\"100%\" bgcolor=\"#ffffff\" border=\"0\" cellpadding=\"10\" cellspacing=\"0\">\r\n<tr>\r\n  <td>\r\n    <table bgcolor=\"#ffffff\" class=\"content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\r\n      <tr>\r\n\t\t\t\t<td align=\"center\" valign=\"top\">\r\n\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" id=\"templateContainer\">\r\n\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t<td valign=\"top\" class=\"bodyContent\" mc:edit=\"body_content\">\r\n                  <p>Hi ' + owner + '<\/p>\r\n\t\t\t\t  <p>' + requestor + ' is requeting to obtain your Dhana slot on ' + date + ' . To allow or deny the request, please click next<\/p>\r\n                  <a class=\"blue-btn\" href=\"http:\/\/localhost:3000\/dhana\/approve\/?key='+eventId+'"><strong>Next<\/strong><\/a>\r\n\t\t\t\t\t\t\t\t<\/td>\r\n\t\t\t\t\t\t\t<\/tr>\r\n\t\t\t\t\t\t<\/table>\r\n\t\t\t\t\t<\/td>\r\n\t\t\t<\/tr>\r\n\t\t\r\n\r\n    <\/table>\r\n    <\/td>\r\n  <\/tr>\r\n<\/table>\r\n<\/body>\r\n<\/html>\r\n';
+   // return '\r\n<html>\r\n\r\n<head>\r\n  <meta http-equiv=\"Content-Type\" content=\"text\/html; charset=utf-8\" \/>\r\n\r\n  <style type=\"text\/css\">\r\n   \r\n\r\n    #bodyCellFooter{margin:0; padding:0; width:100% !important;padding-top:39px;padding-bottom:15px;}\r\n\r\n    #templateContainer{\r\n      border: 1px solid #e2e2e2;\r\n      border-radius: 4px;\r\n      background-clip: padding-box;\r\n      border-spacing: 0;\r\n    }\r\n\r\n    p {\r\n      color:#545454;\r\n      display:block;\r\n      font-family:Helvetica;\r\n      font-size:16px;\r\n      line-height:1.500em;\r\n      font-style:normal;\r\n      font-weight:normal;\r\n      letter-spacing:normal;\r\n      margin-top:0;\r\n      margin-right:0;\r\n      margin-bottom:15px;\r\n      margin-left:0;\r\n      text-align:left;\r\n    }\r\n\r\n    .bodyContent{\r\n      color:#505050;\r\n      font-family:Helvetica;\r\n      font-size:14px;\r\n      line-height:150%;\r\n      padding-top:3.143em;\r\n      padding-right:3.5em;\r\n      padding-left:3.5em;\r\n      padding-bottom:3.143em;\r\n      text-align:left;\r\n    }\r\n\r\n    a.blue-btn {\r\n      background: #5098ea;\r\n      display: inline-block;\r\n      color: #FFFFFF;\r\n      border-top:10px solid #5098ea;\r\n      border-bottom:10px solid #5098ea;\r\n      border-left:20px solid #5098ea;\r\n      border-right:20px solid #5098ea;\r\n      text-decoration: none;\r\n      font-size: 14px;\r\n      margin-top: 1.0em;\r\n      border-radius: 3px 3px 3px 3px;\r\n      background-clip: padding-box;\r\n    }\r\n\r\n  <\/style>\r\n<\/head>\r\n\r\n<body yahoo bgcolor=\"#ffffff\">\r\n<table width=\"100%\" bgcolor=\"#ffffff\" border=\"0\" cellpadding=\"10\" cellspacing=\"0\">\r\n<tr>\r\n  <td>\r\n    <table bgcolor=\"#ffffff\" class=\"content\" align=\"center\" cellpadding=\"0\" cellspacing=\"0\" border=\"0\">\r\n      <tr>\r\n\t\t\t\t<td align=\"center\" valign=\"top\">\r\n\t\t\t\t\t\t<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" id=\"templateContainer\">\r\n\t\t\t\t\t\t\t<tr>\r\n\t\t\t\t\t\t\t\t<td valign=\"top\" class=\"bodyContent\" mc:edit=\"body_content\">\r\n                  <p>Hi ' + owner + '<\/p>\r\n\t\t\t\t  <p>' + requestor + ' is requeting to obtain your Dhana slot on ' + date + ' . To allow or deny the request, please click next<\/p>\r\n                  <a class=\"blue-btn\" href=\"http:\/\/localhost:3000\/dhana\/approve\/?key='+eventId+'"><strong>Next<\/strong><\/a>\r\n\t\t\t\t\t\t\t\t<\/td>\r\n\t\t\t\t\t\t\t<\/tr>\r\n\t\t\t\t\t\t<\/table>\r\n\t\t\t\t\t<\/td>\r\n\t\t\t<\/tr>\r\n\t\t\r\n\r\n    <\/table>\r\n    <\/td>\r\n  <\/tr>\r\n<\/table>\r\n<\/body>\r\n<\/html>\r\n';
+   var result=email_generator.getHTML('dhana-request.pug',{
+       'current_owner':owner,
+       'requestor':requestor,
+       'date':date,
+       'url':"http:\/\/localhost:3000\/dhana\/approve\/?key="+eventId
+   });
+
+   console.log('======email template====');
+   console.log(result);
+   return result;
 
 }
 
