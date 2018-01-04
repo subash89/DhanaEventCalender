@@ -1,74 +1,78 @@
-
-<button name="btn_view_cal" class="btn btn-success " (click)="viewCal= (!viewCal)">View/Hide Calender</button>
+<!-- <button name="btn_view_cal" class="btn btn-success " (click)="viewCal= (!viewCal)">
+  View/Hide Calender</button>
 
 <div *ngIf="viewCal">
-<iframe src="https://calendar.google.com/calendar/embed?src=jfktuipfgori7d3ate1he3t8nc%40group.calendar.google.com&ctz=America%2FNew_York" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-</div>
+  <iframe src="https://calendar.google.com/calendar/embed?src=jfktuipfgori7d3ate1he3t8nc%40group.calendar.google.com&ctz=America%2FNew_York"
+    style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+</div> -->
 <hr>
-<h1>Dhana Request Form</h1>
-<div class="container"  *ngIf="!name; else forminfo">
-    <div class="col-md-4"></div>
-    <form [formGroup]="rForm" (ngSubmit)="requestDhana(rForm.value)"> 
+<div class="container" *ngIf="!name; else forminfo">
+  <form [formGroup]="rForm" (ngSubmit)="requestDhana(rForm.value)">
 
     <div class="col-md-4 text-left">
-        <div class="row form-group">
-            <label for="fName">First Name</label>
-            <input formControlName="firstName" type="text" class="form-control" id="fName" placeholder="Enter First Name">
-            <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched">{{ requiredAlert }}</div>
-  
-          </div>
-          <div class="row form-group">
-            <label for="payee">Last Name</label>
-            <input  type="text" class="form-control" formControlName="lastName" id="lName" placeholder="Enter Last Name">
-            <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched">{{ requiredAlert }}</div>
-  
-          </div>
-          <div class="row form-group">
-            <label for="payee">Email</label>
-            <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter Email Adress">
-            <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">{{ validEmailAlert }}</div>
-  
-          </div>
-          <div class="row form-group">
-              <label for="mobile">Mobile Number</label>
-              <input type="text" class="form-control" id="mobile" formControlName="mobile" placeholder="Enter Mobile Number">
-              <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['mobile'].valid && rForm.controls['mobile'].touched">{{ validMobilelAlert }}</div>
-  
-            </div>
-     
-       <div class="row form-group">
-         <label for="day">Date</label>
-         <input  type="date"  formControlName="date">
-         <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['date'].valid && rForm.controls['date'].touched">{{ requiredAlert }}</div>
+      <h1>Dhana Request Form</h1>
+
+      <div class="row form-group">
+        <label for="fName">First Name</label>
+        <input formControlName="firstName" type="text" class="form-control" id="fName" placeholder="Enter First Name">
+        <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['firstName'].valid && rForm.controls['firstName'].touched">{{ requiredAlert }}</div>
+
+      </div>
+      <div class="row form-group">
+        <label for="payee">Last Name</label>
+        <input type="text" class="form-control" formControlName="lastName" id="lName" placeholder="Enter Last Name">
+        <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['lastName'].valid && rForm.controls['lastName'].touched">{{ requiredAlert }}</div>
+
+      </div>
+      <div class="row form-group">
+        <label for="payee">Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter Email Adress">
+        <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['email'].valid && rForm.controls['email'].touched">{{ validEmailAlert }}</div>
+
+      </div>
+      <div class="row form-group">
+        <label for="mobile">Mobile Number</label>
+        <input type="text" class="form-control" id="mobile" formControlName="mobile" placeholder="Enter Mobile Number">
+        <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['mobile'].valid && rForm.controls['mobile'].touched">{{ validMobilelAlert }}</div>
+
+      </div>
+
+      <div class="row form-group">
+        <label for="day">Date</label>
+        <input type="date" formControlName="date">
+        <div class="alert alert_animation alert-danger" *ngIf="!rForm.controls['date'].valid && rForm.controls['date'].touched">{{ requiredAlert }}</div>
 
 
-       </div>
-        <div class="row form-group">
-         <label for="type">Special Notes</label>
-         <textarea formControlName="specialNotes" type="text" class="form-control" id="type" placeholder="Enter Any special note"></textarea>
-       </div>
-       <div class="col-md-4">
-       </div>
-       <div class="form-group" class="col-md-12">
-         <div class="col-md-6">
-             <button type="submit" name="btn_register" class="btn btn-primary" [disabled]="!rForm.valid">Request</button>
-         </div>
-         <div class="col-md-6">
-         <button type="button" class="btn btn-default">Cancel</button>
-         </div>
-       </div>
-     
-       <div class="col-md-4">
-       </div>
-     </div>
-</form>
-     
-     <div class="col-md-4"></div>
+      </div>
+      <div class="row form-group">
+        <label for="type">Special Notes</label>
+        <textarea formControlName="specialNotes" type="text" class="form-control" id="type" placeholder="Enter Any special note"></textarea>
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="form-group" class="col-md-12">
+        <div class="col-md-6">
+          <button type="submit" name="btn_register" class="btn btn-primary" [disabled]="!rForm.valid">Request</button>
+        </div>
+        <div class="col-md-6">
+          <button type="button" class="btn btn-default">Cancel</button>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+      </div>
+    </div>
+  </form>
+
+  <div class="col-md-4">
+    <iframe src="https://calendar.google.com/calendar/embed?src=jfktuipfgori7d3ate1he3t8nc%40group.calendar.google.com&ctz=America%2FNew_York"
+      style="border: 0" width="700" height="500" frameborder="1" scrolling="no"></iframe>
+  </div>
 
 </div>
-<div class="alert alert-success col-md-12"  *ngIf="result">
-  <strong>Success!</strong> Request submitted succesfully. 
+<div class="alert alert-success col-md-12" *ngIf="result">
+  <strong>Success!</strong> Request submitted succesfully.
 </div>
-<div class="alert alert-danger col-md-12"  *ngIf="result!==undefined && result==false">
+<div class="alert alert-danger col-md-12" *ngIf="result!==undefined && result==false">
   <strong>Failed!</strong> Failed to submit the request.
 </div>

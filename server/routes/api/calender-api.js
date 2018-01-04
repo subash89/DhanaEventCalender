@@ -10,7 +10,7 @@ var logger=require('../../Logger');
 var email_generator=require('../../utils/email-generator');
 
 var dhanaUserStore=new userStore();
-/* GET users listing. */
+/* get all calender events */
 router.get('/list', function (req, res, next) {
 
     calender_proxy.getEvents().then(function (data) {
@@ -21,6 +21,7 @@ router.get('/list', function (req, res, next) {
     });
 });
 
+/* get event by event id */
 router.get('/event/by', function (req, res, next) {
     var id = req.query.id; // $_GET["id"]
 
@@ -32,7 +33,7 @@ router.get('/event/by', function (req, res, next) {
     });
 
 });
-/* GET users listing. */
+/* GET event by date*/
 router.get('/event', function (req, res, next) {
     var date = req.query.date; // $_GET["id"]
 
@@ -47,6 +48,7 @@ router.get('/event', function (req, res, next) {
 
 
 
+/*reject a request with a event id as query paramter "key"*/
 
 router.post('/request/reject',function(req,res,next){
 
@@ -95,7 +97,7 @@ router.post('/request/reject',function(req,res,next){
 
 
 });
-
+/* approve a request with a event id as query paramter "key"*/
 router.get('/request/approve',function(req,res,next){
 
     var key = req.query.key; // $_GET["id"]
@@ -159,6 +161,8 @@ router.get('/request/approve',function(req,res,next){
 
 
 });
+
+/* request dhana event */
 
 router.post('/request/event', function (req, res, next) {
     var event = req.body;
@@ -226,6 +230,8 @@ router.post('/request/event', function (req, res, next) {
 
 
 });
+
+/* add a recurring dhana event*/
 
 router.put('/event', function (req, res, next) {
     var event = req.body.googleCalenderEvent;
